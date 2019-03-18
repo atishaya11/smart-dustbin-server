@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
     public UserBean registerNewUserAccount(UserDto userDto) throws UserExistsException {
 
         if (usernameExists(userDto.getUsername())) {
@@ -69,7 +68,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
     public void createAdmin() {
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
         User admin = userRepository.findByUsername("admin");

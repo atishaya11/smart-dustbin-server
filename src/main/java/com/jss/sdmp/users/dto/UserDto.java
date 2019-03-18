@@ -28,11 +28,6 @@ public class UserDto {
     @NotEmpty(message = "{field.error.empty}")
     private String matchingPassword;
 
-    @NotNull
-    @NotEmpty
-    @Pattern(regexp = "^[1-9]{1}[0-9]{9}$", message = "{phone.error.invalid}")
-    private String phone;
-
     @NotEmpty
     private String firstName;
 
@@ -45,14 +40,6 @@ public class UserDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getFirstName() {
