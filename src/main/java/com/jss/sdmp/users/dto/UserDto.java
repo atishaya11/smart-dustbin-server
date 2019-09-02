@@ -33,7 +33,6 @@ public class UserDto {
 
     private String lastName;
 
-
     public String getUsername() {
         return username;
     }

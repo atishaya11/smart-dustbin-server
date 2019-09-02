@@ -21,6 +21,5 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
-
     }
 }

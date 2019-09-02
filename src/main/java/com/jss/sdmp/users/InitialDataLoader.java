@@ -1,12 +1,10 @@
 package com.jss.sdmp.users;
 
-
 import com.jss.sdmp.users.model.Privilege;
 import com.jss.sdmp.users.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,7 +12,6 @@ import java.util.Set;
 
 @Component
 public class InitialDataLoader implements CommandLineRunner {
-
 
     private RoleRepository roleRepository;
 
@@ -29,7 +26,6 @@ public class InitialDataLoader implements CommandLineRunner {
         this.userService = userService;
     }
 
-    @Transactional
     public void init() {
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
         Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
@@ -43,7 +39,6 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     private Privilege createPrivilegeIfNotFound(String name) {
-
         Privilege privilege = privilegeRepository.findByName(name);
         if (privilege == null) {
             privilege = new Privilege(name);
@@ -53,7 +48,6 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     private void createRoleIfNotFound(String name, Set<Privilege> privileges) {
-
         Role role = roleRepository.findByName(name);
         if (role == null) {
             role = new Role(name);
