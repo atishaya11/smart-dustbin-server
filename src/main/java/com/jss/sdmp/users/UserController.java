@@ -19,9 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
-
 
     private final UserService userService;
 
@@ -66,7 +65,13 @@ public class UserController {
         return userService.registerNewUserAccount(userDto);
     }
 
-    /*@GetMapping("/users/me")
+    @GetMapping("/update/registration_token")
+    public void updateAndroidRegistrationToken(Principal principal, @RequestParam String registrationToken) {
+        String username = principal.getName();
+        userService.updateAndroidRegistrationToken(username);
+    }
+
+   /* @GetMapping("/me")
     public ResponseEntity user(Principal principal){
         UserBean userBean = userService.getUserByUsername(principal.getName(), false);
         return ResponseEntity.ok().body(userBean);
