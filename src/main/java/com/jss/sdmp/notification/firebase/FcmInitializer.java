@@ -7,13 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 @Configuration
-public class FCMInitializer {
+public class FcmInitializer {
 
     @Value("${app.firebase-configuration-file}")
     private String firebaseConfigPath;
@@ -21,16 +21,16 @@ public class FCMInitializer {
     @Value("${app.firebase-database-url}")
     private String firebaseDatabaseUrl;
 
-    private static final Logger logger = LoggerFactory.getLogger(FCMInitializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(FcmInitializer.class);
 
     @PostConstruct
     public void initialize() {
         try {
-            FileInputStream serviceAccount =
-                    new FileInputStream(firebaseConfigPath);
+            ClassPathResource classPathResource = new ClassPathResource(firebaseConfigPath);
+            //FileInputStream serviceAccount = new FileInputStream(ResourceUtils.getFile(firebaseConfigPath));
 
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setCredentials(GoogleCredentials.fromStream(classPathResource.getInputStream()))
                     .setDatabaseUrl(firebaseDatabaseUrl)
                     .build();
 
