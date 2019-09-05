@@ -2,7 +2,7 @@ package com.jss.sdmp.notification.firebase;
 
 import com.google.firebase.messaging.*;
 
-public class FcmNotificationService {
+public class FcmNotificationUtil {
 
     public static void send() {
         String token = "cowZ0zqMGbg:APA91bH8Jt-UPYL-JmwJeAF1F9F_FmA4PBXACw-31usyNKzl5PIeRYTM91w9lpSUrhUZk1qfK-dh2Ds_G1PpVo7Iu7clEsV525lU4juMOueRgZzNyasl6yp6y5X3jLc-NmACElHXmOq7";
@@ -12,6 +12,7 @@ public class FcmNotificationService {
                 .setNotification(new Notification("Test", "Test notify from server"))
                 .setToken(token)
                 .build();
+
         try {
             String response = FirebaseMessaging.getInstance().send(message);
             System.out.println(response);

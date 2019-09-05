@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.ResourceUtils;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 @Configuration
-public class FCMInitializer {
+public class FcmInitializer {
 
     @Value("${app.firebase-configuration-file}")
     private String firebaseConfigPath;
@@ -23,7 +21,7 @@ public class FCMInitializer {
     @Value("${app.firebase-database-url}")
     private String firebaseDatabaseUrl;
 
-    private static final Logger logger = LoggerFactory.getLogger(FCMInitializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(FcmInitializer.class);
 
     @PostConstruct
     public void initialize() {
