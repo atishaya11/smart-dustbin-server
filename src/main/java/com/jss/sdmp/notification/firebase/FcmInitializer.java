@@ -27,8 +27,6 @@ public class FcmInitializer {
     public void initialize() {
         try {
             ClassPathResource classPathResource = new ClassPathResource(firebaseConfigPath);
-            //FileInputStream serviceAccount = new FileInputStream(ResourceUtils.getFile(firebaseConfigPath));
-
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(classPathResource.getInputStream()))
                     .setDatabaseUrl(firebaseDatabaseUrl)

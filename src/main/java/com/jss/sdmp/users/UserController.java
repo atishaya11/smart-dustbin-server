@@ -65,12 +65,6 @@ public class UserController {
         return userService.registerNewUserAccount(userDto);
     }
 
-    @GetMapping("/update/registration_token")
-    public void updateAndroidRegistrationToken(Principal principal, @RequestParam String registrationToken) {
-        String username = principal.getName();
-        userService.updateAndroidRegistrationToken(username);
-    }
-
    /* @GetMapping("/me")
     public ResponseEntity user(Principal principal){
         UserBean userBean = userService.getUserByUsername(principal.getName(), false);
