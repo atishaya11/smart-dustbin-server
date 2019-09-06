@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 @Configuration
-public class FCMInitializer {
+public class FcmInitializer {
 
     @Value("${app.firebase-configuration-file}")
     private String firebaseConfigPath;
@@ -21,7 +21,7 @@ public class FCMInitializer {
     @Value("${app.firebase-database-url}")
     private String firebaseDatabaseUrl;
 
-    private static final Logger logger = LoggerFactory.getLogger(FCMInitializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(FcmInitializer.class);
 
     @PostConstruct
     public void initialize() {
