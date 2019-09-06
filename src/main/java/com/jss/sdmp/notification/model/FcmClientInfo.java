@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
 
 @Document
-public class AndroidRegistrationToken {
+public class FcmClientInfo {
 
     @DBRef
     private User user;
@@ -15,6 +15,8 @@ public class AndroidRegistrationToken {
     private String token;
 
     private Instant createdAt;
+
+    private Instant updatedAt;
 
     public User getUser() {
         return user;
@@ -38,5 +40,13 @@ public class AndroidRegistrationToken {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
