@@ -8,10 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.ResourceUtils;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 @Configuration
@@ -29,8 +27,6 @@ public class FCMInitializer {
     public void initialize() {
         try {
             ClassPathResource classPathResource = new ClassPathResource(firebaseConfigPath);
-            //FileInputStream serviceAccount = new FileInputStream(ResourceUtils.getFile(firebaseConfigPath));
-
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(classPathResource.getInputStream()))
                     .setDatabaseUrl(firebaseDatabaseUrl)

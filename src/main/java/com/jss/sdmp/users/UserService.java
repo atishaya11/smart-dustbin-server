@@ -10,5 +10,4 @@ public interface UserService {
 
     void createAdmin();
 
-    void updateAndroidRegistrationToken(String username);
 }

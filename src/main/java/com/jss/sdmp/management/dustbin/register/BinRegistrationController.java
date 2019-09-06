@@ -24,9 +24,4 @@ public class BinRegistrationController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    @GetMapping("/test_trigger")
-    public void testTrigger() {
-        notificationService.send(null);
-    }
-
 }
