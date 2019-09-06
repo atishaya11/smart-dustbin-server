@@ -36,7 +36,13 @@ public class NotificationServiceImpl implements NotificationService {
             throw new IllegalArgumentException();
         }
         String username = notification.getUser().getUsername();
-        Optional<FcmClientInfo> fcmClientInfoOptional = fcmClientInfoRepository.findByUserUsername(username);
+
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username. Cannot update fcm token.");
+        }
+
+        Optional<FcmClientInfo> fcmClientInfoOptional = fcmClientInfoRepository.findByUser(user);
         if (fcmClientInfoOptional.isPresent()) {
             FcmClientInfo fcmClientInfo = fcmClientInfoOptional.get();
             if (fcmClientInfo.getToken() != null) {
@@ -61,17 +67,18 @@ public class NotificationServiceImpl implements NotificationService {
             throw new IllegalArgumentException();
         }
 
-        Optional<FcmClientInfo> fcmClientInfoOptional = fcmClientInfoRepository.findByUserUsername(username);
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username. Cannot update fcm token.");
+        }
+
+        Optional<FcmClientInfo> fcmClientInfoOptional = fcmClientInfoRepository.findByUser(user);
         if (fcmClientInfoOptional.isPresent()) {
             FcmClientInfo fcmClientInfo = fcmClientInfoOptional.get();
             fcmClientInfo.setToken(fcmClientInfoDto.getToken());
             fcmClientInfo.setUpdatedAt(Instant.now());
             fcmClientInfoRepository.save(fcmClientInfo);
         } else {
-            User user = userRepository.findByUsername(username);
-            if (user == null) {
-                throw new UsernameNotFoundException("Invalid username. Cannot update fcm token.");
-            }
             FcmClientInfo fcmClientInfo = getFcmClientTokenFromDto(fcmClientInfoDto);
             fcmClientInfo.setUser(user);
             fcmClientInfoRepository.save(fcmClientInfo);

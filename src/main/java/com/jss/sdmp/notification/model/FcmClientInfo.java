@@ -1,6 +1,7 @@
 package com.jss.sdmp.notification.model;
 
 import com.jss.sdmp.users.model.User;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +9,9 @@ import java.time.Instant;
 
 @Document
 public class FcmClientInfo {
+
+    @Id
+    private String id;
 
     @DBRef
     private User user;
@@ -17,6 +21,14 @@ public class FcmClientInfo {
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;

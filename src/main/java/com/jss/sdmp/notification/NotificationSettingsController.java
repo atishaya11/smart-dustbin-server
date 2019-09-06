@@ -32,7 +32,7 @@ public class NotificationSettingsController {
     }
 
     @DeleteMapping("/token")
-    public void deleteFcmClientRegistrationToken (Principal principal, @RequestParam String token) {
+    public void deleteFcmClientRegistrationToken (Principal principal) {
         String username = principal.getName();
         notificationService.deleteFcmClientToken(username);
     }

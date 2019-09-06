@@ -12,7 +12,6 @@ public class FcmNotificationUtil {
                 .build();
         try {
             String response = FirebaseMessaging.getInstance().send(message);
-            System.out.println(response);
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
