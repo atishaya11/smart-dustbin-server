@@ -1,4 +1,4 @@
-package com.jss.sdmp.data.dto;
+package com.jss.sdmp.data;
 
 import com.jss.sdmp.data.BinDataHandler;
 import com.jss.sdmp.notification.NotificationService;
