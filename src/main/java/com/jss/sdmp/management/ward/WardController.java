@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/ward")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class WardController {
 
     private final WardService wardService;

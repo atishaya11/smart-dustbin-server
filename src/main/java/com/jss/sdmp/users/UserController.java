@@ -49,7 +49,7 @@ public class UserController {
 
         if (userExists) {
             errors.clear();
-            errors.put("error", "You have already registered for the event.");
+            errors.put("error", "Already registered.");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
         }
         if (result.hasErrors()) {
