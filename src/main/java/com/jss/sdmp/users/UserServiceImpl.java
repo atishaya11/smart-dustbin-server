@@ -3,6 +3,7 @@ package com.jss.sdmp.users;
 import com.jss.sdmp.users.dto.UserBean;
 import com.jss.sdmp.users.dto.UserDto;
 import com.jss.sdmp.users.exception.UserExistsException;
+import com.jss.sdmp.users.exception.UserNotFoundException;
 import com.jss.sdmp.users.model.Role;
 import com.jss.sdmp.users.model.User;
 import com.jss.sdmp.util.Mapper;
@@ -79,4 +80,41 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void addRole(String username, String roleStr) {
+        Role role = roleRepository.findByName(roleStr);
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        boolean hasRole = false;
+        for (Role r : user.getRoles()) {
+            if (r.getName().equals(role.getName())) {
+                hasRole = true;
+                break;
+            }
+        }
+        if (!hasRole) {
+            user.getRoles().add(role);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void removeRole(String username, String roleStr) {
+        Role role = roleRepository.findByName(roleStr);
+
+        if (role == null) {
+            throw new IllegalArgumentException();
+        }
+
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        boolean removed = user.getRoles().removeIf(r -> r.getName().equals(roleStr));
+        if (removed) {
+            userRepository.save(user);
+        }
+    }
 }

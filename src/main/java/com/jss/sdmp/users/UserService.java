@@ -10,4 +10,8 @@ public interface UserService {
 
     void createAdmin();
 
+    void addRole(String username, String role);
+
+    void removeRole(String username, String role);
+
 }
