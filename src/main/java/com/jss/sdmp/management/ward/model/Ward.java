@@ -1,19 +1,31 @@
-package com.jss.sdmp.management.ward.dto;
+package com.jss.sdmp.management.ward.model;
 
-import com.jss.sdmp.users.dto.UserBean;
+import com.jss.sdmp.users.model.User;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-public class WardDto {
+@Document
+public class Ward {
 
+    @Id
     private String id;
 
     private String name;
 
     private String description;
 
-    private List<UserBean> supervisors;
+    public Ward() {
+    }
 
+    public Ward(String name) {
+        this.name = name;
+    }
+
+    @DBRef
+    private List<User> supervisors;
 
     public String getId() {
         return id;
@@ -39,11 +51,11 @@ public class WardDto {
         this.description = description;
     }
 
-    public List<UserBean> getSupervisors() {
+    public List<User> getSupervisors() {
         return supervisors;
     }
 
-    public void setSupervisors(List<UserBean> supervisors) {
+    public void setSupervisors(List<User> supervisors) {
         this.supervisors = supervisors;
     }
 }

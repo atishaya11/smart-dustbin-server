@@ -1,7 +1,14 @@
 package com.jss.sdmp.util;
 
+import com.jss.sdmp.management.ward.dto.WardDto;
+import com.jss.sdmp.management.ward.model.Ward;
 import com.jss.sdmp.users.dto.UserBean;
 import com.jss.sdmp.users.model.User;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Mapper {
 
@@ -17,5 +24,25 @@ public class Mapper {
         userBean.setLastName(user.getLastName());
 
         return userBean;
+    }
+
+    public static WardDto getWardDto(Ward ward) {
+        if(ward == null)
+            return null;
+
+        WardDto wardDto = new WardDto();
+        wardDto.setId(ward.getId());
+        wardDto.setName(ward.getName());
+        wardDto.setDescription(ward.getDescription());
+        wardDto.setSupervisors(getSupervisorDtoList(ward.getSupervisors()));
+        return wardDto;
+    }
+
+    private static List<UserBean> getSupervisorDtoList(List<User> supervisors) {
+        return supervisors == null ? Collections.emptyList() :
+                (supervisors.stream()
+                        .map(Mapper::getUserBean)
+                        .collect(Collectors.toList()));
+
     }
 }

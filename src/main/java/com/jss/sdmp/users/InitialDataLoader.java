@@ -26,6 +26,8 @@ public class InitialDataLoader implements CommandLineRunner {
         this.userService = userService;
     }
 
+
+    //TODO Update the roles and privileges
     public void init() {
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
         Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
@@ -35,6 +37,8 @@ public class InitialDataLoader implements CommandLineRunner {
 
         createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
         createRoleIfNotFound("ROLE_USER", userPrivileges);
+
+        createRoleIfNotFound("ROLE_SUPERVISOR", null);
         userService.createAdmin();
     }
 
