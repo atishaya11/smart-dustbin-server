@@ -79,8 +79,4 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public void updateAndroidRegistrationToken(String username) {
-
-    }
 }
