@@ -23,7 +23,7 @@ public class BinDataReceiver {
         this.binDataHandler = binDataHandler;
     }
 
-    @GetMapping("/data")
+    @GetMapping("/bin/data")
     public void receive(BinDataDto binData) {
         try {
             logger.info(new ObjectMapper().writeValueAsString(binData));
