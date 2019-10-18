@@ -9,11 +9,14 @@ import com.jss.sdmp.users.model.User;
 import com.jss.sdmp.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -116,5 +119,13 @@ public class UserServiceImpl implements UserService {
         if (removed) {
             userRepository.save(user);
         }
+    }
+
+    @Override
+    public List<UserBean> getUsersByQuery(String query) {
+        return userRepository.findAllBySearch(query, PageRequest.of(0, 10))
+            .stream()
+            .map(Mapper::getUserBean)
+            .collect(Collectors.toList());
     }
 }

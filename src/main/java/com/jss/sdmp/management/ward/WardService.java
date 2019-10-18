@@ -13,7 +13,7 @@ public interface WardService {
 
     Optional<WardDto> get(String id);
 
-    Page<WardDto> getAll(Pageable pageable);
+    Page<WardDto> getAll(String query, Pageable pageable);
 
     void delete(String id);
 

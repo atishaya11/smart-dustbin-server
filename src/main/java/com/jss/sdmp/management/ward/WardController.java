@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/ward")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class WardController {
 
     private final WardService wardService;
@@ -29,9 +29,9 @@ public class WardController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Page<WardDto>> getAll() {
+    public ResponseEntity<Page<WardDto>> getAll(@RequestParam(required = false) String query) {
         return ResponseEntity.ok()
-                .body(wardService.getAll(
+                .body(wardService.getAll(query,
                         PageRequest.of(0, Integer.MAX_VALUE)));
     }
 
@@ -41,7 +41,6 @@ public class WardController {
     }
 
     @PostMapping("/")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WardDto> create(@RequestBody WardBean ward) {
         return ResponseEntity.ok(wardService.create(ward));
     }

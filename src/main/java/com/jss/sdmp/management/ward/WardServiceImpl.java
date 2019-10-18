@@ -55,7 +55,12 @@ public class WardServiceImpl implements WardService{
     }
 
     @Override
-    public Page<WardDto> getAll(Pageable pageable) {
+    public Page<WardDto> getAll(String query, Pageable pageable) {
+        if (query == null) {
+            return wardRepository.findAllBySearch(query, pageable)
+                .map(Mapper::getWardDto);
+        }
+
         return wardRepository.findAll(pageable)
                 .map(Mapper::getWardDto);
     }

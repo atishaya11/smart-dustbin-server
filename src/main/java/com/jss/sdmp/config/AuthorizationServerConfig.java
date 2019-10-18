@@ -60,8 +60,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
                 .secret(passwordEncoder.encode(clientSecret))
-                .accessTokenValiditySeconds(18000)
-        ;
+                .accessTokenValiditySeconds(24 * 60 * 60);
     }
 
 

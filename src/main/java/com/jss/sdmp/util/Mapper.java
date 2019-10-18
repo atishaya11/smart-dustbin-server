@@ -3,12 +3,12 @@ package com.jss.sdmp.util;
 import com.jss.sdmp.management.ward.dto.WardDto;
 import com.jss.sdmp.management.ward.model.Ward;
 import com.jss.sdmp.users.dto.UserBean;
+import com.jss.sdmp.users.model.Role;
 import com.jss.sdmp.users.model.User;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Mapper {
 
@@ -22,8 +22,15 @@ public class Mapper {
         userBean.setUsername(user.getUsername());
         userBean.setFirstName(user.getFirstName());
         userBean.setLastName(user.getLastName());
-
+        userBean.setAuthorities(getRoles(user));
         return userBean;
+    }
+
+    private static String getRoles(User user) {
+        return user.getRoles()
+                .stream()
+                .map(Role::getName)
+                .collect(Collectors.joining(","));
     }
 
     public static WardDto getWardDto(Ward ward) {

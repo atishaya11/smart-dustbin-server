@@ -7,7 +7,11 @@ import java.time.Instant;
 public class BinData {
 
     private String binId;
+
     private Instant instant;
+
     private GeoJsonPoint location;
+
+
 
 }

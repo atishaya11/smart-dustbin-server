@@ -5,6 +5,7 @@ import com.jss.sdmp.users.dto.UserDto;
 import com.jss.sdmp.users.exception.UserExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -65,9 +67,9 @@ public class UserController {
         return userService.registerNewUserAccount(userDto);
     }
 
-   /* @GetMapping("/me")
-    public ResponseEntity user(Principal principal){
-        UserBean userBean = userService.getUserByUsername(principal.getName(), false);
-        return ResponseEntity.ok().body(userBean);
-    }*/
+    @GetMapping("/search")
+    public ResponseEntity<List<UserBean>> user(@RequestParam String query){
+        List<UserBean> userBeans = userService.getUsersByQuery(query);
+        return ResponseEntity.ok().body(userBeans);
+    }
 }

@@ -18,6 +18,7 @@ public class UserBean {
 
     private String lastName;
 
+    private String authorities;
 
     public String getId() {
         return id;
@@ -51,5 +52,11 @@ public class UserBean {
         this.lastName = lastName;
     }
 
+    public String getAuthorities() {
+        return authorities;
+    }
 
+    public void setAuthorities(String authorities) {
+        this.authorities = authorities;
+    }
 }

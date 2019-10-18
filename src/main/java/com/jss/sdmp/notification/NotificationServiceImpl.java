@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -49,7 +50,8 @@ public class NotificationServiceImpl implements NotificationService {
                 String title = notification.getTitle();
                 String body = notification.getBody();
                 String token = fcmClientInfo.getToken();
-                FcmNotificationUtil.send(token, title, body);
+                Map<String, String> data = notification.getData();
+                FcmNotificationUtil.send(token, title, body, data);
             }
         }
 
