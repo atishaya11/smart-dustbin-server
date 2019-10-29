@@ -33,7 +33,7 @@ public class BinSimulator {
     }
 
     @PostMapping("/bin/activate")
-    public void activateDustbinSimulate(@RequestParam String bin) {
+    public void activateDustbin(@RequestParam String bin) {
         binRegistrationService.activate(bin);
     }
 
@@ -71,7 +71,7 @@ public class BinSimulator {
     }
 
     @PostMapping("/bin/create_logs_single_dustbin")
-    public void activateDustbins(Principal principal, @RequestParam int count, @RequestParam String bin) {
+    public void createLogsSingleDustbin(Principal principal, @RequestParam int count, @RequestParam String bin) {
 
         int prev = 10;
 
