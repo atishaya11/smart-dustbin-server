@@ -39,11 +39,11 @@ public class NotificationSettingsController {
 
     @GetMapping("/test_trigger")
     public void testTrigger(Principal principal) {
-        String username = principal.getName();
+        /*String username = principal.getName();
         Notification notification = new Notification();
         notification.setTitle("Test Title");
         notification.setBody("Test Notify");
         notification.setUser(new UserBean(username));
-        notificationService.send(notification);
+        notificationService.send(notification);*/
     }
 }

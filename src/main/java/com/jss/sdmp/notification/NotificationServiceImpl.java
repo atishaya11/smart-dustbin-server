@@ -36,14 +36,8 @@ public class NotificationServiceImpl implements NotificationService {
         if (notification == null || notification.getUser() == null) {
             throw new IllegalArgumentException();
         }
-        String username = notification.getUser().getUsername();
 
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username. Cannot update fcm token.");
-        }
-
-        Optional<FcmClientInfo> fcmClientInfoOptional = fcmClientInfoRepository.findByUser(user);
+        Optional<FcmClientInfo> fcmClientInfoOptional = fcmClientInfoRepository.findByUser(notification.getUser());
         if (fcmClientInfoOptional.isPresent()) {
             FcmClientInfo fcmClientInfo = fcmClientInfoOptional.get();
             if (fcmClientInfo.getToken() != null) {

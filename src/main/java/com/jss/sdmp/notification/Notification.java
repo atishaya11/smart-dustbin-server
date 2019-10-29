@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Notification {
 
-    private UserBean user;
+    private User user;
 
     private String title;
 
@@ -18,11 +18,11 @@ public class Notification {
 
     private Map<String, String> data;
 
-    public UserBean getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserBean user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

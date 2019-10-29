@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class WardServiceImpl implements WardService{
@@ -120,5 +121,13 @@ public class WardServiceImpl implements WardService{
             userService.removeRole(supervisorUsername, Constants.ROLE_SUPERVISOR);
             wardRepository.save(ward);
         }
+    }
+
+    @Override
+    public List<WardDto> getWardsBySupervisor(String name) {
+        return wardRepository.findAllBySupervisor(name)
+            .stream()
+            .map(ward -> Mapper.getWardDto(ward, false))
+            .collect(Collectors.toList());
     }
 }

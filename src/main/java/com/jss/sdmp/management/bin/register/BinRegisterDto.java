@@ -8,6 +8,8 @@ public class BinRegisterDto {
 
     private double lng;
 
+    private String wardId;
+
     public String getBin() {
         return bin;
     }
@@ -30,6 +32,14 @@ public class BinRegisterDto {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getWardId() {
+        return wardId;
+    }
+
+    public void setWardId(String wardId) {
+        this.wardId = wardId;
     }
 
     @Override

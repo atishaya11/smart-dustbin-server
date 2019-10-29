@@ -1,72 +1,59 @@
 package com.jss.sdmp.management.bin.register;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jss.sdmp.notification.Notification;
-import com.jss.sdmp.notification.NotificationService;
-import com.jss.sdmp.users.dto.UserBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @RestController
-@RequestMapping("/api/dustbin")
+@RequestMapping("/api/bin")
 public class BinRegistrationController {
-
-    private final NotificationService notificationService;
 
     private final Logger logger = LoggerFactory.getLogger(BinRegistrationController.class);
 
+    private final BinRegistrationService binRegistrationService;
+
     @Autowired
-    public BinRegistrationController(NotificationService notificationService) {
-        this.notificationService = notificationService;
+    public BinRegistrationController(BinRegistrationService binRegistrationService) {
+        this.binRegistrationService = binRegistrationService;
     }
 
-    @GetMapping("/bin/register")
+    @GetMapping("/register")
     @PreAuthorize("hasAuthority('ROLE_SUPERVISOR')")
     public ResponseEntity<String> register(Principal principal, BinRegisterDto binRegisterDto) {
-        logger.info("Registration from android: " + binRegisterDto);
-        return ResponseEntity.status(HttpStatus.OK).build();
+
+        if (principal != null) {
+            String username = principal.getName();
+            binRegistrationService.register(username, binRegisterDto);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/bin/status")
+    @GetMapping("/status")
     @PreAuthorize("hasAuthority('ROLE_SUPERVISOR')")
     public ResponseEntity<String> checkStatus(Principal principal, @RequestParam String bin) {
 
-        try {
-            logger.info(new ObjectMapper().writeValueAsString("Success" + bin));
-            String username = principal.getName();
-            Notification notification = new Notification();
-            notification.setTitle("Dustbin Registered");
-            notification.setBody("Identification Number: " + bin);
-            notification.setUser(new UserBean(username));
-            Map<String, String> data = new HashMap<>();
-            data.put("bin", bin);
-            notification.setData(data);
-            notificationService.send(notification);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        if (principal != null) {
+            boolean active = binRegistrationService.checkStatus(bin);
+            return ResponseEntity.ok(active ? "ACTIVE" : "NOT_ACTIVE");
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/bin/{bin}/activate")
-    public ResponseEntity<String> activate(@PathVariable String bin) {
-        try {
-            logger.info(new ObjectMapper().writeValueAsString("Registered: " + bin));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.OK).build();
+    @GetMapping("/activate")
+    public ResponseEntity<String> activate(@RequestParam String bin) {
+        binRegistrationService.activate(bin);
+        return ResponseEntity.ok().build();
     }
 
 }
