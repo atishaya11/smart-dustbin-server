@@ -18,4 +18,6 @@ public interface UserService {
 
     List<UserBean> getUsersByQuery(String query);
 
+    UserBean getUser(String username);
+
 }

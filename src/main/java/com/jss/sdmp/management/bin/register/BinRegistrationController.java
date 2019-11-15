@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -41,11 +43,13 @@ public class BinRegistrationController {
 
     @GetMapping("/status")
     @PreAuthorize("hasAuthority('ROLE_SUPERVISOR')")
-    public ResponseEntity<String> checkStatus(Principal principal, @RequestParam String bin) {
+    public ResponseEntity<Map<String, String>> checkStatus(Principal principal, @RequestParam String bin) {
 
         if (principal != null) {
             boolean active = binRegistrationService.checkStatus(bin);
-            return ResponseEntity.ok(active ? "ACTIVE" : "NOT_ACTIVE");
+            Map<String, String> map = new HashMap<>();
+            map.put("status", active ? "active" : "not_active");
+            return ResponseEntity.ok(map);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }

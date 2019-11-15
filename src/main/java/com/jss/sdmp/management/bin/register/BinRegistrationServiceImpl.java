@@ -75,6 +75,7 @@ public class BinRegistrationServiceImpl implements BinRegistrationService {
                 new GeoJsonPoint(binRegisterDto.getLat(), binRegisterDto.getLng());
 
             Bin newBin = new Bin(binIdNo, Instant.now(), geoJsonPoint, user, ward);
+            newBin.setLandmark(binRegisterDto.getLandmark());
             newBin = binRepository.save(newBin);
 
             logger.info("Bin registered with BIN: " + newBin.getBin());
@@ -94,7 +95,7 @@ public class BinRegistrationServiceImpl implements BinRegistrationService {
 
                 Notification notification = new Notification();
                 notification.setTitle("Dustbin Registered");
-                notification.setBody("Identification Number: " + bin);
+                notification.setBody("Identification Number: " + bin.getBin());
                 notification.setUser(bin.getInstalledBy());
 
                 Map<String, String> data = new HashMap<>();

@@ -6,6 +6,7 @@ import com.jss.sdmp.management.bin.dto.BinSearchRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,10 @@ public class BinController {
     }
 
     @GetMapping({"", "/"})
-    public ResponseEntity<Page<BinDto>> getAll(Principal principal, BinSearchRequest binSearchRequest) {
-        return ResponseEntity.ok(binService.getAll(binSearchRequest, Pageable.unpaged()));
+    public ResponseEntity<Page<BinDto>> getAll(Principal principal, BinSearchRequest binSearchRequest,
+                                               @RequestParam(required = false, defaultValue = "0") int page,
+                                               @RequestParam(required = false, defaultValue = "100000") int size) {
+        return ResponseEntity.ok(binService.getAll(binSearchRequest, PageRequest.of(page, size)));
     }
 
     @GetMapping("/{bin}")

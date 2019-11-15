@@ -72,4 +72,13 @@ public class UserController {
         List<UserBean> userBeans = userService.getUsersByQuery(query);
         return ResponseEntity.ok().body(userBeans);
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserBean> currentUser(Principal principal){
+        if (principal != null) {
+            String username = principal.getName();
+            return ResponseEntity.ok().body(userService.getUser(username));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
 }

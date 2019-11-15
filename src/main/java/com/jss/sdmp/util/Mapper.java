@@ -78,10 +78,11 @@ public class Mapper {
         binDto.setLocation(bin.getLocation());
         binDto.setActive(bin.isActive());
         binDto.setInstalledBy(getUserBean(bin.getInstalledBy()));
+        binDto.setLandmark(bin.getLandmark() == null ? "Near landmark" : bin.getLandmark());
 
         BinStatus binStatus = new BinStatus();
         binStatus.setComment("The bin status is currently set to random.");
-        binStatus.setLastUpdatedAt(Instant.now());
+        binStatus.setLastUpdatedAt(Instant.now().minusMillis(new Random().nextInt(1000 * 60 * 60 * 2)));
         binStatus.setPercentage(new Random().nextInt(90) + 10);
 
         binDto.setStatus(binStatus);

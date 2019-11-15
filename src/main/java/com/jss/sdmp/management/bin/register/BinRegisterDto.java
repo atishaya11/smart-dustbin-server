@@ -10,6 +10,8 @@ public class BinRegisterDto {
 
     private String wardId;
 
+    private String landmark;
+
     public String getBin() {
         return bin;
     }
@@ -40,6 +42,14 @@ public class BinRegisterDto {
 
     public void setWardId(String wardId) {
         this.wardId = wardId;
+    }
+
+    public String getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
     }
 
     @Override

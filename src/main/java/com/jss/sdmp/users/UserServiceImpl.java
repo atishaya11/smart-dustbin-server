@@ -128,4 +128,9 @@ public class UserServiceImpl implements UserService {
             .map(Mapper::getUserBean)
             .collect(Collectors.toList());
     }
+
+    @Override
+    public UserBean getUser(String username) {
+        return Mapper.getUserBean(userRepository.findByUsername(username));
+    }
 }
